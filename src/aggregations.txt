@@ -1,0 +1,105 @@
+Part 1:
+
+CREATE EXTERNAL TABLE Sports
+(
+ genre string,
+ sports_critic_score int
+);
+
+
+INSERT OVERWRITE TABLE Sports
+SELECT genre, AVG(critic_score) as sports_critic_score
+FROM sales
+WHERE genre LIKE "Sports"
+GROUP BY genre;
+
+----------------------------------
+CREATE EXTERNAL TABLE Sports
+(
+ genre string,
+ sports_critic_score int
+);
+
+INSERT OVERWRITE TABLE shooter
+SELECT genre, AVG(critic_score) AS shooter_critic_score
+FROM sales
+WHERE genre LIKE "Shooter"
+GROUP BY genre;
+----------------------------------
+
+Part 2:
+
+CREATE EXTERNAL TABLE all_games
+(
+  genre string,
+  average_global_sales double,
+  min_global_sales double,
+  max_global_sales double
+);
+
+INSERT OVERWRITE TABLE all_games
+SELECT genre, AVG(global_sales) as average_global_sales, MIN(global_sales) AS min_global_sales, MAX(global_sales) AS max_global_sales
+FROM sales
+GROUP BY genre;
+
+----------------------------------
+
+CREATE EXTERNAL TABLE shooter_stats
+(
+  genre string,
+  average_global_sales double,
+  min_global_sales double,
+  max_global_sales double
+);
+
+INSERT OVERWRITE TABLE shooter_stats
+SELECT genre, AVG(global_sales) as average_global_sales, MIN(global_sales) AS min_global_sales, MAX(global_sales) AS max_global_sales
+FROM sales
+WHERE genre LIKE "Shooter"
+GROUP BY genre;
+
+----------------------------------
+
+CREATE EXTERNAL TABLE sports_stats
+(
+  genre string,
+  average_global_sales double,
+  min_global_sales double,
+  max_global_sales double
+);
+
+INSERT OVERWRITE TABLE sports_stats
+SELECT genre, AVG(global_sales) as average_global_sales, MIN(global_sales) AS min_global_sales, MAX(global_sales) AS max_global_sales
+FROM sales
+WHERE genre LIKE "Sports"
+GROUP BY genre;
+
+----------------------------------
+
+Part 3:
+
+CREATE EXTERNAL TABLE shooter_count
+(
+global_sales double,
+count int
+);
+
+INSERT OVERWRITE TABLE shooter_count
+SELECT global_sales, count(global_sales) as count
+FROM sales
+WHERE genre LIKE "Shooter"
+GROUP BY global_sales;
+
+----------------------------------
+
+CREATE EXTERNAL TABLE sports_count
+(
+global_sales double,
+count int
+);
+
+INSERT OVERWRITE TABLE sports_count
+SELECT global_sales, count(global_sales) as count
+FROM sales
+WHERE genre LIKE "Sports"
+GROUP BY global_sales;
