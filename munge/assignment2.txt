@@ -1,0 +1,31 @@
+1.
+
+INSERT OVERWRITE TABLE sales_genre
+SELECT genre, global_sales, critic_score
+FROM sales;
+
+See image1 
+
+2.
+INSERT OVERWRITE TABLE sales_genre
+SELECT genre, ROUND(global_sales) AS global_sales, critic_score
+FROM sales;
+
+See image2
+
+3.
+INSERT OVERWRITE TABLE sales_genre
+SELECT * 
+FROM sales_genre
+WHERE critic_score > 0;
+
+See image3
+
+4.
+INSERT OVERWRITE TABLE sales_genre
+SELECT *
+FROM sales_genre
+ORDER BY critic_score DESC;
+
+See image4
+
